@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "xlear-car-wash": {
+      "hosting": {
+        "payment-ui": [
+          "xlear-car-wash"
+        ]
+      }
+    }
+  }
+}
