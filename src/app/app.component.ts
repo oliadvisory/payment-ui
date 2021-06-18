@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { PaymentService } from './payment.service';
 
 interface ITimers {
   checkoutId: string;
@@ -11,6 +12,8 @@ interface ITimers {
   end: number;
   addSecs: number;
   text: string;
+  active: boolean;
+  checkout: string;
 }
 
 interface ITimeCycle {
@@ -35,10 +38,18 @@ export class AppComponent {
   title = 'payment-ui';
 
   public timers: ITimers[];
+  public qrCode: string;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+    private paymentService: PaymentService
+  ) {
     this.getCheckoutIds();
     this.timers = [];
+    this.qrCode = '34cXou8xGiJ3G3jiVx48mcugzjKbeht3xY';
+    this.paymentService.getPing().subscribe((data: string) => {
+      console.log(data);
+    });
   }
 
   async getCheckoutIds() {
@@ -64,6 +75,9 @@ export class AppComponent {
         const startF = moment.unix(i.val.start).format('LT');
         const endF = moment.unix(i.val.end).format('LT');
 
+        // active if greater than now
+        const active = i.val.end > Number(moment().format('X'));
+
         this.timers.push({
           checkoutId: i.id,
           start: i.val.start,
@@ -72,6 +86,8 @@ export class AppComponent {
           endF: endF,
           addSecs: i.val.addSeconds,
           text: '',
+          active: active,
+          checkout: `https://commerce.coinbase.com/checkout/${i.id}`,
         });
       }
     }

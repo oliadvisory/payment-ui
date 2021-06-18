@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "deploy": "firebase deploy --only hosting --project xlear-car-wash",
     "test": "ng test"
   },
   "private": true,
@@ -23,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~12.0.4",
     "@angular/router": "~12.0.4",
     "@types/lodash": "^4.14.170",
+    "angularx-qrcode": "^11.0.0",
     "firebase": "^7.0 || ^8.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",

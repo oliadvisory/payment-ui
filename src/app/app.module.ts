@@ -7,6 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
+import { QRCodeModule } from 'angularx-qrcode';
+import { HttpClientModule } from '@angular/common/http';
+import { PaymentService } from './payment.service';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,9 +21,13 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     FlexLayoutModule,
+    QRCodeModule,
+    HttpClientModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    PaymentService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,9 +1,12 @@
 
-  <div fxLayout="row" fxLayoutAlign="space-around start">
+  <div fxLayout="row"  fxLayoutAlign="space-around start" fxLayout.lt-md="column" fxLayoutGap.lt-md="60px" fxLayoutAlign.lt-md="center center">
     <div fxLayout="column" *ngFor="let i of timers">
       <div>{{i.checkoutId}}</div>
-      <div>{{i.startF}}({{i.start}}) - {{i.endF}}({{i.end}})</div>
-      <div>{{i.text}}</div>
-    </div>
+      <div *ngIf="i.active">{{i.startF}}({{i.start}}) - {{i.endF}}({{i.end}})</div>
+      <div *ngIf="i.active">{{i.text}}</div>
+      <div *ngIf="!i.active">Please add more time...</div>
+      <a [href]="i.checkout">Checkout</a>
+      <qrcode [qrdata]="qrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>    
   </div>
   
